@@ -22,14 +22,15 @@ class Graph:
 			self._edges_[from_v] = set([to_v,])
 
 	def search_depth(self, src, dest):
-		self._search_stack_.append(src)
+		self._search_stack_.append(str(src))
 		# 因为是双向边，这个标志位防止往回遍历
 		src.visited = True
 		for n in self._edges_[src]:
-			if n == dest:
-				print " -- ".join(self._search_stack_) + " -- " + n
-			elif not n.visited:
-				self.search_depth(n, dest)
+			if not n.visited:
+				if n == dest:
+					print " -- ".join(self._search_stack_) + " -- " + str(n)
+				else:
+					self.search_depth(n, dest)
 
 		self._search_stack_.pop()
 
