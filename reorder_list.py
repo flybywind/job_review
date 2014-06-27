@@ -23,6 +23,7 @@ class Solution:
         mid = mid.next
         prev.next = None
         prev = None
+        # reverse the second half as FILO stack
         while mid is not None:
             next = mid.next
             mid.next = prev
@@ -30,6 +31,7 @@ class Solution:
             mid = next
         j = prev
         i = head
+        # merge the two halves:
         while i is not None and j is not None:
             n1 = i.next
             n2 = j.next
