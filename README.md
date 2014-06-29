@@ -53,3 +53,15 @@ You must do this in-place without altering the nodes' values.
 
 For example,<br/>
 Given {1,2,3,4}, reorder it to {1,4,2,3}.
+
+7. Word Break; leetcode.com
+----------------------------------
+Given a string s and a dictionary of words dict, add spaces in s to construct a sentence where each word is a valid dictionary word.
+
+Return all such possible sentences.
+
+For example, given
+s = "catsanddog",
+dict = ["cat", "cats", "and", "sand", "dog"].
+
+A solution is ["cats and dog", "cat sand dog"].
