@@ -35,3 +35,21 @@
 4. sortList; problem set from leetcode.com
 ----------------------------
 Sort a linked list in O(n log n) time using constant space complexity.
+
+5. LRUCache
+-----------------------------
+Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and set.
+
+get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
+
+set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
+
+6. reorder list; leetcode.com
+---------------------------------
+Given a singly linked list L: L0→L1→…→Ln-1→Ln, <br/>
+reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…<br/>
+
+You must do this in-place without altering the nodes' values.
+
+For example,<br/>
+Given {1,2,3,4}, reorder it to {1,4,2,3}.
