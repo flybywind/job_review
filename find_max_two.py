@@ -34,6 +34,7 @@ def find_max_two(vec, i1, i2):
 		return None
 	else:
 		return sum(vec[i1:i2])
+		
 
 if __name__ == "__main__":
 	sample = randint(-100, 100, 10)
