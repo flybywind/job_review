@@ -77,5 +77,5 @@ Children with a higher rating get more candies than their neighbors.
 What is the minimum candies you must give?
 
 思路：
-寻找上升/下降区间，给区间最大值元素赋n，n等于区间长度。
+在ratings里面寻找上升/下降区间，设区间长度n，给区间内每个元素按照从大到小的顺序分别赋值n-1、n-2 …… 0。
 上升/下降区间分别扫一次，然后用max merge
