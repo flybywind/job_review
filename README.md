@@ -75,3 +75,7 @@ You are giving candies to these children subjected to the following requirements
 Each child must have at least one candy.
 Children with a higher rating get more candies than their neighbors.
 What is the minimum candies you must give?
+
+思路：
+寻找上升/下降区间，给区间最大值元素赋n，n等于区间长度。
+上升/下降区间分别扫一次，然后用max merge
