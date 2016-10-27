@@ -80,3 +80,27 @@ What is the minimum candies you must give?
 思路：
 在ratings里面寻找上升/下降区间，设区间长度n，给区间内每个元素按照从大到小的顺序分别赋值n-1、n-2 …… 0。
 上升/下降区间分别扫一次，然后用max merge
+
+9. Shortest Palindrome
+----------------------------------
+Given a string S, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the 
+shortest palindrome you can find by performing this transformation.
+
+For example:
+
+Given "aacecaaa", return "aaacecaaa".
+       aaacecaa   
+Given "abcd", return "dcbabcd".
+       dcb 
+若要找最短回文，就先找出从左侧开始的最长回文子串。然后把子串之外的右侧部分，颠倒插到左边即可！
+       aacecab
+       baceca
+      baceca
+     baceca
+    baceca
+   baceca
+  baceca
+      ||
+bacecaacecab    
+                   
+       
