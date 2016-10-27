@@ -8,6 +8,10 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
+        if input_str is None:
+            return None
+        if len(input_str) == 0:
+            return ""
         revt = self.reverse_str(input_str)[:-1]
         N = len(input_str)
         j = k = 0
