@@ -28,18 +28,16 @@ class Solution(object):
                 return input_str
         
     def reverse_str(self, str):
-        N = len(str)
-        revt = [""]*N
-        for i in xrange(N-1, -1, -1):
-            revt[N-1-i] = str[i]
-        return "".join(revt)
+        return str[::-1]
+
 
 
 if __name__ == "__main__":
     test_str = [
+        ("aaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaa"),
         ("abcd", "dcbabcd"),
         ("aacecaaa", "aaacecaaa"),
-        ("aaabbbbc", "cbbbbaaabbbbc")]
+        ("aaabbbbc", "cbbbbaaabbbbc")        ]
     s = Solution()
     for i, paire in enumerate(test_str):
         ins = paire[0]
