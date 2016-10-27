@@ -3,7 +3,7 @@
 
 1.  find_max_two.py
 ---------------------------------
-给定一个实数数组，寻找里面和最大的2个数之和
+给定一个实数数组，寻找里面和最大的2个数之和：那就寻找最大的前2个数不就行了。
 
 2. string_pattern.py
 --------------------------------
@@ -35,6 +35,7 @@
 4. sortList; problem set from leetcode.com
 ----------------------------
 Sort a linked list in O(n log n) time using constant space complexity.
+不用交换节点，交换节点的内容即可！使用快速排序的思路。
 
 5. LRUCache
 -----------------------------
