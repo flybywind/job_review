@@ -34,10 +34,32 @@ def find_max_two(vec, i1, i2):
 		return None
 	else:
 		return sum(vec[i1:i2])
-		
 
+def find_max_two2(vec):
+	if len(vec) == 1:
+		return vec[0]
+	if len(vec) >= 2:
+		if vec[0] > vec[1]:
+			max1 = vec[0]
+			max2 = vec[1]
+		else:
+			max2 = vec[0]
+			max1 = vec[1]
+	i = 2
+	N = len(vec)
+	## max1 >= max2 
+	while i < N:
+		v = vec[i]
+		if v > max1:
+			max1 = v
+		elif v > max2:
+			max2 = v 	
+		i += 1
+	return max1 + max2, max1, max2
+	
 if __name__ == "__main__":
 	sample = randint(-100, 100, 10)
 	print "sample is ", sample
-	print "max two result:", find_max_two_force(sample)
-	print "max two: ", find_max_two(sample, 0, len(sample))
+	print "force max two:", find_max_two_force(sample)
+	print "2分法 max two: ", find_max_two(sample, 0, len(sample))
+	print "寻找最大前2个数：", find_max_two2(sample)
