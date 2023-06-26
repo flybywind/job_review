@@ -11,7 +11,7 @@ public class Solution {
                 return new int[]{start - 1, start};
             }
             if (this.matrix[idx][end - 1] < elem) {
-                return new int[]{end, end + 1};
+                return new int[]{end-1, end};
             }
             int mid = (start + end) / 2;
             int midV = this.matrix[idx][mid];
@@ -37,7 +37,7 @@ public class Solution {
                 return new int[]{start - 1, start};
             }
             if (this.matrix[end - 1][idx] < elem) {
-                return new int[]{end, end + 1};
+                return new int[]{end-1, end};
             }
             int mid = (start + end) / 2;
             int midV = this.matrix[mid][idx];
@@ -81,7 +81,7 @@ public class Solution {
             if (rowRes0[0] == rowRes0[1] || rowRes1[0] == rowRes1[1]) {
                 return true;
             }
-            int colStart1 = rowRes1[1], colEnd1 = rowRes0[0];
+            int colStart1 = rowRes1[1], colEnd1 = rowRes0[1];
             if (colStart1 >= this.nCol || colEnd1 < 0) {
                 return false;
             }
@@ -92,7 +92,7 @@ public class Solution {
             if (colRes0[0] == colRes0[1] || colRes1[0] == colRes1[1]) {
                 return true;
             }
-            int rowStart1 = colRes1[1], rowEnd1 = colRes0[0];
+            int rowStart1 = colRes1[1], rowEnd1 = colRes0[1];
             if (rowStart1 >= this.nRow || rowEnd1 < 0) {
                 return false;
             }
@@ -110,6 +110,9 @@ public class Solution {
             return false;
         }
         this.nCol = matrix[0].length;
+        if (this.nCol == 0) {
+            return false;
+        }
         return findNumberIn2DArray(target, 0, nRow, 0, nCol);
     }
 }
