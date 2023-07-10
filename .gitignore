@@ -1,0 +1,5 @@
+javaknowledge/.idea/**
+javaknowledge/target/**
+golang/go.sum
+golang/.vscode/launch.json
+.gitignore.swp
