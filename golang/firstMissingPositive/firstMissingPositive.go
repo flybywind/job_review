@@ -2,6 +2,9 @@ package firstmissingpositive
 
 import "math"
 
+// https://leetcode.cn/problems/first-missing-positive/solution/que-shi-de-di-yi-ge-zheng-shu-by-leetcode-solution/
+// 关键是要看到问题的本质属性。这样才能设计好一个高效的算法。
+// 对于一个长度为 N 的数组，其中没有出现的最小正整数只能在 [1, N+1]中。这是因为如果 [1, N] 都出现了，那么答案是 N+1，否则答案是 [1,N] 中没有出现的最小正整数。
 // in-place sort
 func firstMissingPositive(nums []int) int {
 	if len(nums) == 1 {
