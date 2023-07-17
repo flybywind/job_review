@@ -19,7 +19,8 @@ func TestCase2(t *testing.T) {
 }
 
 func TestCase3(t *testing.T) {
-	assert.Equal(t, 47, atMostNGivenDigitSet([]string{"1", "3", "5", "7"}, 256))
+	// assert.Equal(t, 47, atMostNGivenDigitSet([]string{"1", "3", "5", "7"}, 256))
+	assert.Equal(t, 10, atMostNGivenDigitSet([]string{"1", "7"}, 231))
 }
 
 func TestCase4(t *testing.T) {
@@ -28,4 +29,12 @@ func TestCase4(t *testing.T) {
 
 func TestCase5(t *testing.T) {
 	assert.Equal(t, 3, atMostNGivenDigitSet([]string{"1"}, 834))
+}
+
+func TestCase6(t *testing.T) {
+	assert.Equal(t, 79, atMostNGivenDigitSet([]string{"1", "2", "3", "6", "7", "8"}, 211))
+}
+
+func TestCase7(t *testing.T) {
+	assert.Equal(t, 59979, atMostNGivenDigitSet([]string{"1", "2", "3", "4", "5", "6", "7", "8", "9"}, 91243))
 }

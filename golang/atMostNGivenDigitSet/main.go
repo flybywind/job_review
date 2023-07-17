@@ -33,7 +33,7 @@ func atMostNGivenDigitSet(digits []string, n int) int {
 	lastNum := ""
 	for i := len(decbit) - 1; i >= 0; i-- {
 		// case ["1"], 856
-		if i > 0 && lastNum != "" && lastNum < decbit[i-1] {
+		if i > 0 && lastNum != "" && lastNum > decbit[i+1] {
 			break
 		}
 		lessnum := numOflessThan(digits, decbit[i])
@@ -43,6 +43,7 @@ func atMostNGivenDigitSet(digits []string, n int) int {
 		}
 		if lessnum < 1 { // case [ "1", "3", "4"] 125
 			if digits[lessnum] == decbit[i] {
+				lastNum = digits[lessnum]
 				continue
 			} else {
 				break
@@ -52,7 +53,7 @@ func atMostNGivenDigitSet(digits []string, n int) int {
 		if lessnum < len(digits) {
 			lastNum = digits[lessnum]
 		} else {
-			lastNum = digits[len(digits)-1]
+			lastNum = "99"
 		}
 	}
 	return sum
