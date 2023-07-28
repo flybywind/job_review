@@ -85,18 +85,25 @@ func (s QuadBitSet) Get(i, j int) bool {
 type line struct {
 	p1, p2  int
 	points  int
-	a, b, c float32 // line attribute, a*x + b*y = c
+	a, b, c int // line attribute, a*x + b*y = c
 }
 
-func floatEqal(a, b float32, eps float32) bool {
-	d := a - b
-	if d < 0 {
-		d = -d
+func gcd(a, b int) int {
+	for a%b != 0 {
+		a, b = b, a%b
 	}
-	return d < eps
+	return b
 }
+func compactDiv(a, b int) (int, int) {
+	if a == 0 {
+		return 0, 1
+	}
+	d := gcd(a, b)
+	return a / d, b / d
+}
+
 func (l line) lieAt(p []int) bool {
-	return floatEqal(l.a*float32(p[0])+l.b*float32(p[1]), l.c, 0.1)
+	return l.a*p[0]+l.b*p[1] == l.c
 }
 
 func from2point(p1, p2 []int) line {
@@ -108,13 +115,21 @@ func from2point(p1, p2 []int) line {
 		points: 0,
 	}
 	if x1 != x2 {
-		l.a = float32(y2-y1) / float32(x1-x2)
-		l.b = 1
-		l.c = float32(x1*y2-x2*y1) / float32(x1-x2)
+		if y1 == y2 {
+			l.a = 0
+			l.b = 1
+			l.c = y1
+		} else {
+			a1, a2 := compactDiv(y2-y1, x1-x2)
+			c1, c2 := compactDiv(x1*y2-x2*y1, x1-x2)
+			l.a = a1 * c2
+			l.b = a2 * c2
+			l.c = c1 * a1
+		}
 	} else {
 		l.a = 1
 		l.b = 0
-		l.c = float32(x1)
+		l.c = x1
 	}
 
 	return l
@@ -130,6 +145,7 @@ func (l *line) addPoint(idx int) {
 	}
 }
 
+// 一个很重要的发现是，当固定一个点时，和它共线的点只需要满足斜率相同即可！！
 func bestLine(points [][]int) []int {
 	pointNum := len(points)
 
