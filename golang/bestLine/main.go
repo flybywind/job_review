@@ -7,9 +7,81 @@ import (
 	"runtime/pprof"
 )
 
-type point struct {
-	x, y int
+type bitSet struct {
+	data []uint8
+	num  int
+	size int // current non-zero bits num
 }
+
+func CreateBitSet(bitNum int) bitSet {
+	n := bitNum/8 + 1
+	return bitSet{data: make([]uint8, n), num: bitNum}
+}
+
+func (s *bitSet) Set(p int) {
+	if s.Get(p) {
+		return
+	}
+	n := p / 8
+	m := p % 8
+	s.data[n] |= (uint8(1) << m)
+	s.size++
+}
+func (s *bitSet) MSet(bits ...int) {
+	for _, b := range bits {
+		s.Set(b)
+	}
+}
+func (s *bitSet) Clear(p int) {
+	if !s.Get(p) {
+		return
+	}
+	n := p / 8
+	m := p % 8
+	s.data[n] &= (^(uint8(1) << m))
+	s.size--
+}
+func (s bitSet) Get(p int) bool {
+	n := p / 8
+	m := p % 8
+	return (s.data[n] & (uint8(1) << m)) > 0
+}
+func (s bitSet) All(bits ...int) bool {
+	// all bits are true
+	for _, i := range bits {
+		if !s.Get(i) {
+			return false
+		}
+	}
+	return true
+}
+func (s bitSet) Any(bits ...int) bool {
+	// any of the bits is true
+	for _, i := range bits {
+		if s.Get(i) {
+			return true
+		}
+	}
+	return false
+}
+
+type QuadBitSet struct {
+	bs  bitSet
+	num int
+}
+
+func CreateQuadBitSet(bitNum int) QuadBitSet {
+	bs := CreateBitSet(bitNum * bitNum)
+	return QuadBitSet{bs, bitNum}
+}
+func (s *QuadBitSet) Set(i, j int) {
+	s.bs.Set(s.num*i + j)
+	s.bs.Set(s.num*j + i)
+}
+func (s QuadBitSet) Get(i, j int) bool {
+	return s.bs.All(i + j*s.num)
+}
+
 type line struct {
 	p1, p2  int
 	points  int
@@ -23,14 +95,14 @@ func floatEqal(a, b float32, eps float32) bool {
 	}
 	return d < eps
 }
-func (l line) lieAt(p point) bool {
-	return floatEqal(l.a*float32(p.x)+l.b*float32(p.y), l.c, 0.1)
+func (l line) lieAt(p []int) bool {
+	return floatEqal(l.a*float32(p[0])+l.b*float32(p[1]), l.c, 0.1)
 }
 
-func from2point(p1, p2 point) *line {
-	x1, y1 := p1.x, p1.y
-	x2, y2 := p2.x, p2.y
-	l := &line{
+func from2point(p1, p2 []int) line {
+	x1, y1 := p1[0], p1[1]
+	x2, y2 := p2[0], p2[1]
+	l := line{
 		p1:     math.MaxInt,
 		p2:     math.MaxInt,
 		points: 0,
@@ -58,41 +130,37 @@ func (l *line) addPoint(idx int) {
 	}
 }
 
-type pointSlice []point
-
 func bestLine(points [][]int) []int {
 	pointNum := len(points)
-	ps := make(pointSlice, pointNum)
-	for i, p := range points {
-		ps[i] = point{p[0], p[1]}
-	}
-	lineMap := map[[2]int]*line{} // key: index in points
+
+	lineCoverPointSet := CreateQuadBitSet(pointNum)
 	maxPiontInLine := 0
 	retIndx := []int{0, 0}
 	for i := 0; i < pointNum; i++ {
-		p1 := ps[i]
+		p1 := points[i]
+		bs := CreateBitSet(pointNum)
+		bs.Set(i)
 		for j := i + 1; j < pointNum; j++ {
-			p2 := ps[j]
-
-			_, k1 := lineMap[[2]int{i, j}]
-			_, k2 := lineMap[[2]int{j, i}]
-			if k1 || k2 {
+			p2 := points[j]
+			if lineCoverPointSet.Get(i, j) {
 				continue
 			}
+			bs.Set(j)
 			newLine := from2point(p1, p2)
 			newLine.addPoint(i)
 			newLine.addPoint(j)
-			lineMap[[2]int{i, j}] = newLine
+			lineCoverPointSet.Set(i, j)
 			// todo check if (i, j) hit lineMap
 			for k := 0; k < pointNum; k++ {
 				// add other points that lie at line comprised of [i,j]
-				if k == i || k == j {
+				if k == i || k == j || bs.Get(k) {
 					continue
 				}
-				if newLine.lieAt(ps[k]) {
+				if newLine.lieAt(points[k]) {
 					newLine.addPoint(k)
-					lineMap[[2]int{i, k}] = newLine
-					lineMap[[2]int{j, k}] = newLine
+					bs.Set(k)
+					lineCoverPointSet.Set(i, k)
+					lineCoverPointSet.Set(j, k)
 				}
 			}
 			if newLine.points > maxPiontInLine {
