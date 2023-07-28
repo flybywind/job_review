@@ -50,6 +50,9 @@ func Solution(A []int, B []int) int {
 			if s1 == s2 {
 				dupNum++
 			}
+			if rectHeap.Len() == 0 {
+				break
+			}
 			cand = heap.Pop(&rectHeap).(Rect)
 		}
 		if potentialCnt-dupNum/2 > maxNum {
