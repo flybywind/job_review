@@ -3,3 +3,7 @@ javaknowledge/target/**
 golang/go.sum
 golang/.vscode/launch.json
 .gitignore.swp
+
+golang/bestLine/cmd/bestline.prof
+golang/bestLine/cmd/cmd
+golang/bestLine/bestline.prof.bench
