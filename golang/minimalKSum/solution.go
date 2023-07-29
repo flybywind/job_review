@@ -17,30 +17,53 @@ func (h *IntHeap) Pop() any {
 }
 
 func minimalKSum(nums []int, k int) int64 {
-	h := &IntHeap{sort.IntSlice(nums)}
-	heap.Init(h)
-
-	sumn := int64(0)
-	n := 0
-	prev := 0
-	var cur int
-	for h.Len() > 0 {
-		cur = heap.Pop(h).(int)
-		if cur > prev+1 {
-			for i := prev + 1; i < cur; i++ {
-				sumn += int64(i)
+	forceSol := func() int64 {
+		numMap := map[int64]struct{}{}
+		for _, n := range nums {
+			numMap[int64(n)] = struct{}{}
+		}
+		sumn := int64(0)
+		for i, n := int64(1), 0; n < k; i++ {
+			if _, ok := numMap[i]; !ok {
+				sumn += i
 				n++
-				if n >= k {
-					return sumn
-				}
 			}
 		}
-		prev = cur
+		return sumn
 	}
-	for n < k {
-		sumn += int64(cur) + 1
-		cur++
-		n++
+	heapSol := func() int64 {
+		h := &IntHeap{sort.IntSlice(nums)}
+		heap.Init(h)
+
+		sumn := int64(0)
+		n := 0
+		prev := 0
+		var cur int
+		for h.Len() > 0 {
+			cur = heap.Pop(h).(int)
+			if cur > prev+1 {
+				for i := prev + 1; i < cur; i++ {
+					sumn += int64(i)
+					n++
+					if n >= k {
+						return sumn
+					}
+				}
+			}
+			prev = cur
+		}
+		for n < k {
+			sumn += int64(cur) + 1
+			cur++
+			n++
+		}
+		return sumn
 	}
-	return sumn
+
+	n := len(nums)
+	if n > 1000 && k < 1*n {
+		return forceSol()
+	} else {
+		return heapSol()
+	}
 }

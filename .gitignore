@@ -7,3 +7,4 @@ golang/.vscode/launch.json
 golang/bestLine/cmd/bestline.prof
 golang/bestLine/cmd/cmd
 golang/bestLine/bestline.prof.bench
+golang/**/*.pprof
