@@ -1,6 +1,7 @@
 package hash
 
 import (
+	"fmt"
 	"math/rand"
 	"testing"
 
@@ -11,9 +12,9 @@ func TestBloomFilter(t *testing.T) {
 	seed := int64(12345678)
 	bf := NewBloomFilter(5000, 0.01, seed)
 	rndGen := rand.New(rand.NewSource(seed))
-	insertVals := map[int64]bool{}
-	for i := 0; i < 5_000; i++ {
-		r := rndGen.Int63n(10_000-1) + 1
+	insertVals := map[uint64]bool{}
+	for i := 0; i < 6_000; i++ {
+		r := uint64(rndGen.Int63n(10_000-1) + 1)
 		// t.Log("insert", r, "at", i)
 		insertVals[r] = true
 		bf.Set(r)
@@ -21,7 +22,7 @@ func TestBloomFilter(t *testing.T) {
 
 	fp_count := 0
 	tn_count := 0
-	for i := int64(0); i < 10_000; i++ {
+	for i := uint64(0); i < 10_000; i++ {
 		// if bloom filter return false, then this element must not has been inserted
 		if !bf.Hit(i) {
 			if !assert.Equal(t, false, insertVals[i]) {
@@ -35,7 +36,7 @@ func TestBloomFilter(t *testing.T) {
 			fp_count++
 		}
 	}
-	t.Log("false negative rate:", fp_count, "true negative count:", tn_count)
+	fmt.Printf("false negative rate: %f, true negative count: %d\n", float64(fp_count)/float64(10_0000), tn_count)
 	assert.LessOrEqual(t, float64(fp_count)/float64(10_0000), 1e-3)
 }
 
@@ -44,14 +45,14 @@ func BenchmarkBloomFilter(b *testing.B) {
 	bf := NewBloomFilter(5000, 0.1, seed)
 	rndGen := rand.New(rand.NewSource(seed))
 	for i := 0; i < 5_000; i++ {
-		r := rndGen.Int63n(10_000-1) + 1
+		r := uint64(rndGen.Int63n(10_000-1) + 1)
 		// t.Log("insert", r, "at", i)
 		bf.Set(r)
 	}
 	tn_count := 0
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		for i := int64(0); i < 10_000; i++ {
+		for i := uint64(0); i < 10_000; i++ {
 			// if bloom filter return false, then this element must not has been inserted
 			if !bf.Hit(i) {
 				tn_count++

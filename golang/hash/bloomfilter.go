@@ -5,16 +5,12 @@ import (
 	"math/rand"
 )
 
-type Hash interface {
-	Hash64A(data []byte) uint64
-}
 type BloomFilter struct {
 	data    []uint64
-	filters []Hash
+	filters []*murmurHashImpl
 	k       int    // hash func size
 	m       uint64 // bits num
 	rndGen  *rand.Rand
-	buf     []byte
 }
 
 func NewBloomFilter(size int, tol float32, seed int64) *BloomFilter {
@@ -26,10 +22,9 @@ func NewBloomFilter(size int, tol float32, seed int64) *BloomFilter {
 		m:    uint64(m),
 		k:    k,
 		data: make([]uint64, n),
-		buf:  make([]byte, 8),
 	}
 
-	bf.filters = make([]Hash, k)
+	bf.filters = make([]*murmurHashImpl, k)
 	bf.rndGen = rand.New(rand.NewSource(seed))
 	for i := range bf.filters {
 		bf.filters[i] = NewMurMurHashWithSeed(bf.rndGen.Int63())
@@ -37,19 +32,9 @@ func NewBloomFilter(size int, tol float32, seed int64) *BloomFilter {
 	return &bf
 }
 
-func (bf *BloomFilter) Set(e int64) {
-	b := &bf.buf
-	// a := make([]byte, 8)
-	// b := &a
-	bf.trans(e, *b)
+func (bf *BloomFilter) Set(e uint64) {
 	for i, f := range bf.filters {
-		bf.setbit((f.Hash64A(*b) + uint64(i*i)) % bf.m)
-	}
-}
-func (bf *BloomFilter) trans(e int64, bits []byte) {
-	for i := 0; i < len(bits); i++ {
-		bits[i] = byte(e & 0xff)
-		e >>= 8
+		bf.setbit((f.Hash64(e) + uint64(i*i)) % bf.m)
 	}
 }
 func (bf *BloomFilter) setbit(m uint64) {
@@ -62,13 +47,9 @@ func (bf *BloomFilter) testbit(m uint64) bool {
 	j := m & 0x3f
 	return (bf.data[i] & (1 << j)) > 0
 }
-func (bf *BloomFilter) Hit(e int64) bool {
-	b := &bf.buf
-	// a := make([]byte, 8)
-	// b := &a
-	bf.trans(e, *b)
+func (bf *BloomFilter) Hit(e uint64) bool {
 	for i, f := range bf.filters {
-		if !bf.testbit((f.Hash64A(*b) + uint64(i*i)) % bf.m) {
+		if !bf.testbit((f.Hash64(e) + uint64(i*i)) % bf.m) {
 			return false
 		}
 	}

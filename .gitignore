@@ -8,3 +8,4 @@ golang/bestLine/cmd/bestline.prof
 golang/bestLine/cmd/cmd
 golang/bestLine/bestline.prof.bench
 golang/**/*.pprof
+golang/hash/hash.test
