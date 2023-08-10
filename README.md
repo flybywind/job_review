@@ -6,11 +6,17 @@
 那么就可以想想，是否可以先把出现频次最大的元素找出来，然后看看它是否出现了N/2次以上。第二步O(N)肯定可以。第一步呢？事实上也是可以的。只需要维护一个counter和last_ele 2个变量，counter在i处的取值，即为那个最大元素的频次和其他元素出现次数总和的差值。这个差值肯定会大于等于1. 不过如果数组中没有这样的高频元素，其他元素也可能被返回。所以就需要step2验证一下。
 
 2. 换个角度思考问题
+
 比如https://leetcode.cn/problems/zigzag-conversion/solution/zzi-xing-bian-huan-by-jyd/ 这个问题。
 
-3. 先认清问题的本质
+3. 先认清问题的本质,遇到问题多想一步！
+
 比如 https://leetcode.cn/problems/first-missing-positive/solution/que-shi-de-di-yi-ge-zheng-shu-by-leetcode-solution/ 和 点共线问题。
 对于经过一个点的所有直线，只需要判断斜率，不需要判断截距了
+
+还有这个 https://leetcode.cn/problems/container-with-most-water/solutions/11491/container-with-most-water-shuang-zhi-zhen-fa-yi-do/
+
+简单思考一下，如果分别移动左右长or短板，分别可能出现什么情况？然后**写下来！**
 
 4. 注意边界条件
 尤其是数组越界，空指针等等。
