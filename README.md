@@ -12,7 +12,8 @@
 比如 https://leetcode.cn/problems/first-missing-positive/solution/que-shi-de-di-yi-ge-zheng-shu-by-leetcode-solution/ 和 点共线问题。
 对于经过一个点的所有直线，只需要判断斜率，不需要判断截距了
 
-
+4. 注意边界条件
+尤其是数组越界，空指针等等。
 
 
 ## 收集一下自己所有的面试题
