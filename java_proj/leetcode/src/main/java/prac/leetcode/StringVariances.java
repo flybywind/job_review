@@ -22,24 +22,21 @@ public class StringVariances {
             if (input.equals("0")) {
                 return 0;
             }
-            return n;
+            return 1;
         }
         int pos_num = 0;
-        boolean findInvaid = false;
+        boolean findInvalid = false;
         for (int i=1; i < n+1; ++i) {
             int ind = Integer.parseInt(input.substring(0, i));
             if (ind > 0 && ind <=26) {
                 int r = parseNum(input.substring(i, n));
-                if (r >= 0) {
-                    pos_num += r;
-                }
-            else {
-                    findInvaid = true;
-                    break;
-                }
+                pos_num += r;
+            } else {
+                findInvalid = true;
+                break;
             }
         }
-        if (findInvaid && pos_num == 0) {
+        if (findInvalid && pos_num == 0) {
             return 0;
         }
 
