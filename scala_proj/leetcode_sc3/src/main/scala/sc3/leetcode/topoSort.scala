@@ -3,8 +3,8 @@ package sc3.leetcode
 import java.util
 import scala.collection.mutable
 class topoSort(nodeNum:Int, adjList:List[List[Int]]):
-  private val ingreeMap = mutable.Map[Int, Int]() ++ (0.until(nodeNum).map(x => (x, 0)).toMap)
-  private val childrenMap = mutable.Map[Int, List[Int]]().withDefault(_=>List())
+  private val ingreeMap = Array.ofDim[Int](nodeNum)
+  private val childrenMap = 0.until(nodeNum).map(x=>List[Int]()).toBuffer
 
   for (lst <- adjList) {
     ingreeMap(lst(0)) += 1
@@ -19,7 +19,7 @@ class topoSort(nodeNum:Int, adjList:List[List[Int]]):
     }
   }
   def getOrder = {
-    val starts = ingreeMap.filter(kv => kv._2 == 0).keys
+    val starts = ingreeMap.zipWithIndex.filter(_._1 == 0).map(_._2)
     val ret = util.ArrayList[Int]()
     for (node <- starts) {
       dfs(ret, node)

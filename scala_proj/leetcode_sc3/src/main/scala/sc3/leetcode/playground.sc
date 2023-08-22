@@ -12,3 +12,8 @@ seq = seq :++ List(9)
 for (s <- seq) {
   println(s)
 }
+
+val zeroa = new Array[Int](10)
+zeroa.size
+zeroa(1) = 19
+zeroa
