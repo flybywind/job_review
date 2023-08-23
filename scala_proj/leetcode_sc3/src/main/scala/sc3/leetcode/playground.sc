@@ -18,18 +18,7 @@
 //zeroa(1) = 19
 //zeroa
 
-type Address = String
+case class NodeEff(i:Int, j: Int, effort: Int)
 
-abstract class Person (var name: String, var address: Address) {
-  def mock:String
-  override def toString = if (address == null) name else s"$name @ $address"
-}
-class Employee (name: String, address: Address, var age: Int)
-  extends Person (name, address) {
-  // rest of the class
-  override def mock: String = f"$address _mock"
-}
-
-val e = new Employee("john", "axxx", 24)
-e.name = "xxx"
-print(e, e.name)
+val n = NodeEff(0, 0, 1)
+n
