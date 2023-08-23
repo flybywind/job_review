@@ -9,7 +9,8 @@ class UnionSet(n: Int):
   def find(n: Int): Int =
     if parent(n) != n then
       val p = find(parent(n))
-      parent(n) = p
+      if parent(n) != p then
+        parent(n) = p
       p
     else
       parent(n)

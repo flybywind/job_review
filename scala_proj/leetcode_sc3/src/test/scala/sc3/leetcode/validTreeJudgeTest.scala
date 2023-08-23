@@ -40,5 +40,18 @@ class validTreeJudgeTest extends AnyFlatSpec {
         Array[Int](0, 2)
       ))
     }
+
+    assertResult(true) {
+      validTreeJudge.validTree(9, Array[Array[Int]](
+        Array[Int](0, 2),
+        Array[Int](7, 8),
+        Array[Int](3,5),
+        Array[Int]( 2,7),
+        Array[Int]( 3,1),
+        Array[Int]( 3,4),
+        Array[Int]( 7, 6),
+        Array[Int]( 4,2)
+      ))
+    }
   }
 }
