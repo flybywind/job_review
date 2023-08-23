@@ -20,5 +20,10 @@
 
 case class NodeEff(i:Int, j: Int, effort: Int)
 
-val n = NodeEff(0, 0, 1)
-n
+val n = Array[NodeEff](
+  NodeEff(0, 0, 1),
+  NodeEff(0, 1, 2),
+  NodeEff(1, 3, 0),
+  NodeEff(2, 2, 4)
+)
+n.sortBy(-_.j)

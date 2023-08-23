@@ -1,7 +1,5 @@
 package sc3.leetcode
 
-import org.w3c.dom.traversal.NodeFilter
-
 import scala.collection.mutable
 
 // https://leetcode.cn/problems/path-with-minimum-effort/description/
