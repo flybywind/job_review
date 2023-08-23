@@ -7,9 +7,9 @@ class AnimalObserver extends Observer:
   def notifyUpdate(msg: String): Unit =
     printf(f"updated: $msg\n")
 
-abstract class Animal(val id: Int, var weight: Float, var height: Float) extends Observable:
-  type T = Animal
-  type O = AnimalObserver
+abstract class Animal(val id: Int, var weight: Float, var height: Float) extends Observable[AnimalObserver]:
+//  type T = Animal
+//  type O = AnimalObserver
 
   def move:Unit =
     val oldVal = this.toString
@@ -17,9 +17,6 @@ abstract class Animal(val id: Int, var weight: Float, var height: Float) extends
     this.height += 1
     val newVal = this.toString
     update(oldVal, newVal)
-
-  def attach(o: O): Unit =
-    this.queue = this.queue.prepended(o)
 
   override def toString =
     getClass.toString + f"-$id: {weight: $weight, height: $height}"
