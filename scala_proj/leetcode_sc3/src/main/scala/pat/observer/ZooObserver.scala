@@ -12,7 +12,7 @@ object ZooObserver:
   val observer = new AnimalObserver()
   var zoo = ArrayBuffer[Animal]()
   private def RegisterAnimal =
-    for i <- 0 to 10 do
+    for i <- 0 to 3 do
       val lion = new Lion(i*2 + 1, 1000, 200)
       lion.attach(observer)
       zoo.append(lion)
@@ -26,7 +26,7 @@ object ZooObserver:
     while true do
       val a = zoo(rand.nextInt(zoo.size))
       a.move
-      Thread.sleep(100)
+      Thread.sleep(10)
 
   @main def main(): Unit = {
     RegisterAnimal

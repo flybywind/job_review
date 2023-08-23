@@ -10,16 +10,14 @@ class AnimalObserver extends Observer:
 abstract class Animal(val id: Int, var weight: Float, var height: Float) extends Observable:
   type T = Animal
   type O = AnimalObserver
-  var queue: List[O] = List[O]()
 
-  def move:Unit
-
-  def update(state: T): Unit =
+  def move:Unit =
     val oldVal = this.toString
-    val newVal = state.toString
-    this.height = state.height
-    this.weight = state.weight
-    Future {for q <- queue do q.notifyUpdate(f"oldState = $oldVal, newState = $newVal") }
+    this.weight += 1
+    this.height += 1
+    val newVal = this.toString
+    update(oldVal, newVal)
+
   def attach(o: O): Unit =
     this.queue = this.queue.prepended(o)
 
@@ -28,13 +26,17 @@ abstract class Animal(val id: Int, var weight: Float, var height: Float) extends
 
 
 // TODO need to figure out why!!
+// In Lions, the height delta increase will be 2*weight
+// While in Monkeys, the height seems fixed at the initial val
+// during debuging, I can find there are two height in Monkey's class
 class Monkey(id: Int, weight: Float, height: Float) extends Animal(id, weight, height):
-  def move =
+  override def move =
+    this.height += 1
     println("Monkey moved")
-    update(new Monkey(this.id, this.weight+1, this.height+1))
-
+    super.move
 
 class Lion(id: Int, _w: Float, _h: Float) extends Animal(id, _w, _h):
-  def move =
+  override def move =
+    this.height += 1
     println("Lion moved")
-    update(new Lion(this.id, this.weight+1, this.height+1))
+    super.move
