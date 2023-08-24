@@ -1,35 +1,21 @@
 package sc3.leetcode
 
-import sc3.leetcode.getLastNumber.Direction.{Back, Front}
-
 object getLastNumber {
 
-  enum Direction:
+  private enum Direction(val v: Int):
     def next = this match
       case Front => Back
       case Back => Front
-
-    case Front
-    case Back
+    case Front extends Direction(1)
+    case Back extends Direction(-1)
 
   def solution(n: Int) =
-    1
+    if n == 1 then 1 else
+    solRecur(n, 2, 2, Direction.Front)
 
-  def solRecur(n: Int, m: Int, dir: Direction): Int =
-    if n == 1 then
-      m
+  private  def solRecur(n: Int, firstRem: Int, step:Int, dir: Direction): Int =
+    if n <= 3 then
+      firstRem
     else
-      dir match
-        case Front =>
-          solRecur(n/2, m*2, dir.next)
-//          n%2 == 0 match
-//            case true => //even
-//              solRecur(n/2, m*2)
-//            case false =>
-//              solRecur()
-        case Back =>
-          solRecur()
-
-
-
+      solRecur(n/2, firstRem+dir.v*(step*(n/2 - 2)), step*2, dir.next)
 }
