@@ -1,5 +1,8 @@
-javaknowledge/.idea/**
-javaknowledge/target/**
+**/.idea/**
+**/.bsp/**
+**/target/**
+.DS_Store
+**/.DS_Store
 golang/go.sum
 golang/.vscode/launch.json
 .gitignore.swp
@@ -9,3 +12,4 @@ golang/bestLine/cmd/cmd
 golang/bestLine/bestline.prof.bench
 golang/**/*.pprof
 golang/hash/hash.test
+java_proj/leetcode/.idea/misc.xml
