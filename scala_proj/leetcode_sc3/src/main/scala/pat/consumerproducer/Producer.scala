@@ -10,7 +10,7 @@ class Producer[T](val queue: BlockingQueue[T]):
     this(q)
     this.generator = gen
 
-  val start = Future {
+  def start = Future {
     while true do
       queue.put(generator.apply())
       Thread.sleep(10)

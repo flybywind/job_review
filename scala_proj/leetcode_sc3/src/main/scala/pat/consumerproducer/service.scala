@@ -1,9 +1,12 @@
 package pat.consumerproducer
 
-import java.util.concurrent.ArrayBlockingQueue
-import scala.concurrent.Future, concurrent.ExecutionContext.Implicits.global
+import java.util.concurrent.{ArrayBlockingQueue, Semaphore}
+import scala.concurrent.{Await, Future}
+import concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.{Duration, SECONDS}
 import scala.util.Random
-import scala.util.{ Failure, Success, Try }
+import scala.util.{Failure, Success, Try}
+
 object service {
   val namelist = Array[String]("Tom", "John", "Kally", "Hellen")
   case class Person(name:String, age:Int)
@@ -20,12 +23,11 @@ object service {
     val producer = Producer[Person](blockQueue, gen = genPerson)
 
     var futSeq = producer.start :: Nil
-    Thread.sleep(100)
     for i <- 0 until 3 do
       val consumer = Consumer[Person](blockQueue, proc = procPerson)
       futSeq = consumer.consume :: futSeq
 
-//    Thread.sleep(1000)
-    Future.sequence(futSeq.map(_.map(Success(_)).recover{case t=>Failure(t)})).map(println(_))
+//    Await.result(Future.sequence(futSeq), Duration(5, SECONDS))
+    Thread.sleep(5000)
     println("leave main")
 }

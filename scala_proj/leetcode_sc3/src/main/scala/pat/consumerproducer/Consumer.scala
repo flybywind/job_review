@@ -11,8 +11,10 @@ class Consumer[T](val queue: BlockingQueue[T]):
   def this(q: BlockingQueue[T], proc: T=>Unit) =
     this(q)
     this.process = proc
-  val consume = Future {
-    this.queue.forEach(e =>
+
+  def consume = Future {
+    while true do
+      val e = this.queue.take()
       try {
         this.process(e)
         val n = this.cnt.incrementAndGet()
@@ -20,7 +22,6 @@ class Consumer[T](val queue: BlockingQueue[T]):
       } catch {
         case e: Exception => println(f"got exception in ${Thread.currentThread().getName}, exception: ${e.getMessage}")
       }
-    )
   }
 
 

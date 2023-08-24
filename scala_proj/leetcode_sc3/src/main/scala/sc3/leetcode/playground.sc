@@ -2,7 +2,9 @@ import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import mutable.Stack
 import mutable.Queue
-import scala.concurrent.Future, concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{Await, Future}
+import concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.{Duration, SECONDS}
 //import scala.collection.mutable
 //val mm = mutable.Map[Int, Int]().withDefaultValue(0)
 //0.until(5).foreach(x=>mm(x)+=1)
@@ -60,5 +62,5 @@ stk
 
 //buf.slice(0, 4) = buf.slice(1, 5)
 val fut = Future{"hello future"}
-fut.isCompleted
-fut.foreach(println(_))
+//fut.onComplete()
+Await.result(fut, Duration(1, SECONDS))
