@@ -1,3 +1,5 @@
+import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer, mutable.Stack, mutable.Queue
 //import scala.collection.mutable
 //val mm = mutable.Map[Int, Int]().withDefaultValue(0)
 //0.until(5).foreach(x=>mm(x)+=1)
@@ -18,12 +20,37 @@
 //zeroa(1) = 19
 //zeroa
 
-case class NodeEff(i:Int, j: Int, effort: Int)
+//case class NodeEff(i:Int, j: Int, effort: Int)
+//
+//val n = Array[NodeEff](
+//  NodeEff(0, 0, 1),
+//  NodeEff(0, 1, 2),
+//  NodeEff(1, 3, 0),
+//  NodeEff(2, 2, 4)
+//)
+//n.sortBy(-_.j)
+var ll = 0::1::3::Nil
 
-val n = Array[NodeEff](
-  NodeEff(0, 0, 1),
-  NodeEff(0, 1, 2),
-  NodeEff(1, 3, 0),
-  NodeEff(2, 2, 4)
-)
-n.sortBy(-_.j)
+while ll.nonEmpty do
+  ll match
+    case head::tail =>
+      println(f"$head $tail")
+      ll = tail
+    case Nil => println("end")
+
+val buf = ArrayBuffer[Int](1,2,3,4,5)
+buf.append(8)
+buf
+
+val q = mutable.Queue[Int](0,1,2,3,4,5,6)
+q.append(9)
+q
+q.dequeue()
+q
+
+val stk = mutable.Stack[Int](1, 2, 3,4,8)
+stk.push(9)
+stk
+stk.pop()
+stk.pop()
+stk

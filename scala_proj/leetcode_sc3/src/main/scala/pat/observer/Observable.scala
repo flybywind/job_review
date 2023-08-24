@@ -7,7 +7,8 @@ import scala.concurrent.Future, concurrent.ExecutionContext.Implicits.global
 trait Observable[O <:Observer]:
 //  type T
 //  type O <: Observer
-
+// btw, we can use Future.sequence to group multiple futures and wait them for all success
+// https://stackoverflow.com/a/20173973
   var queue: List[O] = List[O]()
   def update(oldVal:String, newVal:String):Unit =
     Future {
