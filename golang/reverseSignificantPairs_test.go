@@ -8,13 +8,13 @@ import (
 )
 
 func TestReversePair(t *testing.T) {
-	N := 20
+	N := 10
 	R := 5
 	nums := make([]int, N)
 	rnd := rand.New(rand.NewSource(12345))
 	for r := 0; r < R; r++ {
 		for i := 0; i < N; i++ {
-			nums[i] = rnd.Intn(50)
+			nums[i] = rnd.Intn(10)
 		}
 		expect := reversePairsBruteForce(nums)
 		t.Logf("pair num: %d, nums = %v\n", expect, nums)

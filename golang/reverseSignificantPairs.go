@@ -6,10 +6,10 @@ func _div_concur(nums []int, left, right int) int {
 	}
 	if right-left == 2 {
 		ret := 0
+		if int64(nums[left]) > int64(nums[right-1])*2 {
+			ret = 1
+		}
 		if nums[left] >= nums[right-1] {
-			if nums[left] > 2*nums[right-1] {
-				ret = 1
-			}
 			nums[left], nums[right-1] = nums[right-1], nums[left]
 		}
 		return ret
@@ -24,20 +24,17 @@ func _div_concur(nums []int, left, right int) int {
 
 	i := left
 	j := mid
-	ii := i
 	for i < mid && j < right {
-		if nums[i] >= nums[j] {
-			if nums[i] > 2*nums[j] {
-				middleCount += (mid - i)
-			} else {
-				if ii < i {
-					ii = i
-				}
-				for ii < mid && nums[ii] <= 2*nums[j] {
-					ii++
-				}
-				middleCount += (mid - ii)
-			}
+		for j < right && int64(nums[i]) > int64(nums[j])*2 {
+			middleCount += (mid - i)
+			j++
+		}
+		i++
+	}
+	i = left
+	j = mid
+	for i < mid && j < right {
+		if nums[i] > nums[j] {
 			temp = append(temp, nums[j])
 			j++
 		} else {
