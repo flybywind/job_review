@@ -9,6 +9,15 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	recursiveFind = func(nums1 []int, nums2 []int, pos int) float64 {
 		n1 := len(nums1)
 		n2 := len(nums2)
+		if n1 == 0 || n2 == 0 {
+			if n1 > 0 {
+				nums1 = nums1[:pos]
+				n1 = pos
+			} else {
+				nums2 = nums2[:pos]
+				n2 = pos
+			}
+		}
 		if pos == (n1 + n2) {
 			i, j := n1-1, n2-1
 			temp := make([]int, 0, 2)
@@ -38,6 +47,7 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 			}
 			return float64(temp[0])
 		}
+
 		r := float32(pos) / float32(n1+n2)
 		p1 := int32(float32(n1) * r)
 		p2 := int32(float32(n2) * r)
