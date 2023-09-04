@@ -5,10 +5,10 @@ def testNQueen():
     for n in range(13):
         v = 1 if n < 7 else 0
         sol, ary = nqueen(n, v)
-        sol_str = ""
-        if len(ary) > 0:
-            sol_str = "\n".join(ary)
-        print(f"n = {n}, solution = {sol}, \n{sol_str}")
+     #    sol_str = ""
+     #    if len(ary) > 0:
+     #        sol_str = "\n".join(str(s) for s in ary)
+        print(f"n = {n}, solution = {sol}, \n{ary}")
 
 
 '''

@@ -16,16 +16,16 @@ def nqueen(n, v=0):
                 if p == n-1:
                     sol += 1
                     if v > 0:
-                        sol_str = [f"---- find solution{sol} ---"]
+                        sol_str = []
                         for i in range(n):
-                            row = ["    "]
+                            row = []
                             for j in range(n):
                                 if path[i] == j:
-                                    row.append("*")
+                                    row.append("Q")
                                 else:
-                                    row.append("0")
-                            sol_str.append(" ".join(row))
-                        sol_array.append("\n".join(sol_str))
+                                    row.append(".")
+                            sol_str.append("".join(row))
+                        sol_array.append(sol_str)
                     continue
                 if i-1 >= 0:
                     left2 |= (1 << (i-1))
