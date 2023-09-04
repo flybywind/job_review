@@ -14,3 +14,6 @@ golang/**/*.pprof
 golang/hash/hash.test
 java_proj/leetcode/.idea/misc.xml
 scala_proj/leetcode_sc3/src/main/scala/tubi/interview/raw_access.log
+**/.vscode/**
+.gitignore
+**/__pycache__/**
