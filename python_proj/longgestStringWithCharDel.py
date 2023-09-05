@@ -2,6 +2,25 @@ from typing import List
 from collections import defaultdict
 
 # https://leetcode.cn/problems/longest-word-in-dictionary-through-deleting/solutions/996014/tong-guo-shan-chu-zi-mu-pi-pei-dao-zi-di-at66/ 双指针
+'''
+class Solution:
+    def findLongestWord(self, s: str, dictionary: List[str]) -> str:
+        dictionary.sort(key=lambda x: (-len(x), x))
+        for t in dictionary:
+            i = j = 0
+            while i < len(t) and j < len(s):
+                if t[i] == s[j]:
+                    i += 1
+                j += 1
+            if i == len(t):
+                return t
+        return ""
+
+作者：力扣官方题解
+链接：https://leetcode.cn/problems/longest-word-in-dictionary-through-deleting/solutions/996014/tong-guo-shan-chu-zi-mu-pi-pei-dao-zi-di-at66/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+'''
 
 """
 # 尝试了静态数组代替defaultdict，发现并不能减少内存使用
