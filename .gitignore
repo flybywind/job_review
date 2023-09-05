@@ -18,3 +18,5 @@ scala_proj/leetcode_sc3/src/main/scala/tubi/interview/raw_access.log
 .gitignore
 **/__pycache__/**
 python_proj/*.out
+python_proj/*.swp
+python_proj/longgestStringWithCharDel.py

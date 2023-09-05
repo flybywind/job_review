@@ -10,7 +10,10 @@ class HeapNode:
         self.currentPos = p
 
     def __lt__(self, other) -> bool:
-        return self.potential > other.potential
+        if self.potential != other.potential:
+            return self.potential > other.potential
+        else:
+            return self.prefix < other.prefix
 
     def __repr__(self) -> str:
         return f"{self.prefix}@{self.currentPos}, potential = {self.potential}"
@@ -54,20 +57,23 @@ class Solution:
                     # print(f"skip, {prefix2} has visited")
                     continue
                 visited.add(prefix2)
-                if prefix2 in wholeWord:
-                    if len(prefix2) > len(ans) or \
-                            (len(prefix2) == len(ans) and prefix2 < ans):
-                        ans = prefix2
-                        # print(f"find ans: {ans}")
-                        heapAry = [
-                            hn for hn in heapAry if hn.potential >= len(ans)]
-                        heapq.heapify(heapAry)
+                if prefix2 in mapTrie:
+                    if prefix2 in wholeWord:
+                        if len(prefix2) > len(ans) or \
+                                (len(prefix2) == len(ans) and prefix2 < ans):
+                            ans = prefix2
+                            # print(f"find ans: {ans}")
+                            heapAry = [
+                                hn for hn in heapAry if hn.potential >= len(ans)]
+                            heapq.heapify(heapAry)
 
-                hn2 = HeapNode(prefix=prefix2, p=i+1)
-                hn2.potential = min(
-                    strN - i - 1 + len(hn2.prefix), mapTrie[hn2.prefix])
-                if hn2.potential >= len(ans):
-                    # print(f">> push heap: {hn2}")
-                    heapq.heappush(heapAry, hn2)
+                    potential = min(
+                        strN - i - 1 + len(prefix2), mapTrie[prefix2])
+                    if potential > len(ans) or \
+                            (potential == len(ans) and ans[:len(prefix2)] > prefix2):
+                        hn2 = HeapNode(prefix=prefix2, p=i+1)
+                        hn2.potential = potential
+                        # print(f">> push heap: {hn2}")
+                        heapq.heappush(heapAry, hn2)
 
         return ans
