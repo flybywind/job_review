@@ -9,15 +9,15 @@ def sol():
 
 
 class TestLonggestStringWithCharDel:
+    def testCase0(self, sol):
+        s = "abpcplea"
+        dictionary = ["a", "b", "c"]
+        assert 'a' == sol.findLongestWord(s, dictionary)
 
     def testCase1(self, sol):
         s = "abpcplea"
         dictionary = ["ale", "apple", "monkey", "plea"]
         assert 'apple' == sol.findLongestWord(s, dictionary)
-
-        s = "abpcplea"
-        dictionary = ["a", "b", "c"]
-        assert 'a' == sol.findLongestWord(s, dictionary)
 
     def testCase2(self, sol):
         s = "abpcplea"

@@ -17,3 +17,4 @@ scala_proj/leetcode_sc3/src/main/scala/tubi/interview/raw_access.log
 **/.vscode/**
 .gitignore
 **/__pycache__/**
+python_proj/*.out
