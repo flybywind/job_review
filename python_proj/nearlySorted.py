@@ -3,6 +3,7 @@ import heapq
 
 class Solution:
     # Function to return the sorted array.
+    # https://www.geeksforgeeks.org/nearly-sorted-algorithm/
     def nearlySorted(self, a, n, k):
         i = 0
         s = a[:k+1]
@@ -41,17 +42,17 @@ class Solution:
 
 
 sol = Solution()
-# k = 3
-# arr = [6, 5, 3, 2, 8, 10, 9]
-# print(f"arr = {arr}, sorted = {sol.nearlySorted(arr, len(arr), k)}")
+k = 3
+arr = [6, 5, 3, 2, 8, 10, 9]
+print(f"arr = {arr}, sorted = {sol.nearlySorted(arr, len(arr), k)}")
 
-# k = 2
-# arr = [3, 1, 4, 2, 5]
-# print(f"arr = {arr}, sorted = {sol.nearlySorted(arr, len(arr), k)}")
+k = 2
+arr = [3, 1, 4, 2, 5]
+print(f"arr = {arr}, sorted = {sol.nearlySorted(arr, len(arr), k)}")
 
-# k = 1
-# arr = [5]
-# print(f"arr = {arr}, sorted = {sol.nearlySorted(arr, len(arr), k)}")
+k = 1
+arr = [5]
+print(f"arr = {arr}, sorted = {sol.nearlySorted(arr, len(arr), k)}")
 
 # arr = [3, -4, 2, -3, -1, 7, -5]
 # print(
@@ -66,8 +67,8 @@ sol = Solution()
 # print(
 #     f"min-sum of consecutive sub array of {arr} is {sol.smallestSumSubarray(arr, len(arr))}")
 
-arr = [1, 2, 3]
-print(f"sum of range of array {arr} = {sol.subarrayRanges(len(arr), arr)}")
+# arr = [1, 2, 3]
+# print(f"sum of range of array {arr} = {sol.subarrayRanges(len(arr), arr)}")
 
-arr = [-32, 0, -2, 72]
-print(f"sum of range of array {arr} = {sol.subarrayRanges(len(arr), arr)}")
+# arr = [-32, 0, -2, 72]
+# print(f"sum of range of array {arr} = {sol.subarrayRanges(len(arr), arr)}")
